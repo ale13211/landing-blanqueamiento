@@ -36,7 +36,7 @@
       Aprovechar descuento
     </a>
     <br>
-    <button onclick="document.getElementById('discountPopup').style.display='none';" 
+    <button id="noThanksBtn"
             style="margin-top:10px; background:none; border:none; color:#FFA500; cursor:pointer; text-decoration:underline;">
       No gracias
     </button>
@@ -44,10 +44,27 @@
 </div>
 
 <script>
-// Espera 20 segundos antes de mostrar popup
-setTimeout(function(){
+let popupTimer;
+
+// Función para mostrar popup
+function showPopup() {
   document.getElementById('discountPopup').style.display = 'flex';
-}, 20000); // 20000 ms = 20 segundos
+}
+
+// Función para ocultar popup y reiniciar el timer
+function hidePopup() {
+  document.getElementById('discountPopup').style.display = 'none';
+  // Vuelve a mostrar después de 20s
+  popupTimer = setTimeout(showPopup, 20000);
+}
+
+// Inicializa popup la primera vez después de 20s
+popupTimer = setTimeout(showPopup, 20000);
+
+// Evento para botón “No gracias”
+document.getElementById('noThanksBtn').addEventListener('click', hidePopup);
+</script>
+
 </script>
 
 <style>
@@ -255,6 +272,7 @@ faqItems.forEach(item => {
 
 </body>
 </html>
+
 
 
 
