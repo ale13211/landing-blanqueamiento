@@ -26,6 +26,29 @@
   <div class="price" style="font-size:18px; margin:5px 0; color:#FFD700;"><strong>2 Cajas:</strong> Gs. 249.000 <span style="font-size:16px; color:#FF4500;">(Ahorrás Gs. 29.000)</span></div>
   <div style="margin-top:10px; font-weight:bold; font-size:16px; color:#FF6347;">¡Stock limitado, comprá antes que se agoten!</div>
 </div>
+<!-- Popup de descuento -->
+<div id="discountPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:#000; color:#FFA500; padding:20px; border-radius:10px; text-align:center; max-width:400px; font-family:sans-serif;">
+    <h2>¡Espera! ⏳</h2>
+    <p>Por quedarte en nuestra web te ofrecemos un <strong>5% de descuento</strong> en tu compra.</p>
+    <a href="https://wa.me/595982164843?text=Vengo%20a%20aprovechar%20el%205%25%20de%20descuento%20en%20la%20web" 
+       style="display:inline-block; margin-top:15px; padding:10px 20px; background:#FF4500; color:#fff; text-decoration:none; border-radius:5px; font-weight:bold;">
+      Aprovechar descuento
+    </a>
+    <br>
+    <button onclick="document.getElementById('discountPopup').style.display='none';" 
+            style="margin-top:10px; background:none; border:none; color:#FFA500; cursor:pointer; text-decoration:underline;">
+      No gracias
+    </button>
+  </div>
+</div>
+
+<script>
+// Espera 20 segundos antes de mostrar popup
+setTimeout(function(){
+  document.getElementById('discountPopup').style.display = 'flex';
+}, 20000); // 20000 ms = 20 segundos
+</script>
 
 <style>
 body {
@@ -232,6 +255,7 @@ faqItems.forEach(item => {
 
 </body>
 </html>
+
 
 
 
