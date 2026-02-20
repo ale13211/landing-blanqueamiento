@@ -76,6 +76,44 @@ button:hover {
     font-size:14px;
     color:#aaa;
 }
+
+/* Carrusel simple de imágenes */
+.carousel {
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+}
+
+.carousel img {
+    flex:0 0 auto;
+    width:45%;
+}
+
+/* FAQ acordeón */
+.faq-item {
+    background:#1c1c1c;
+    border-radius:10px;
+    margin:10px 0;
+    text-align:left;
+    padding:15px;
+    cursor:pointer;
+}
+
+.faq-item h3 {
+    margin:0;
+    font-size:16px;
+    color:#ff7a00;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.faq-item p {
+    display:none;
+    margin-top:10px;
+    font-size:14px;
+    color:#ccc;
+}
 </style>
 </head>
 
@@ -86,7 +124,9 @@ button:hover {
 <h1>Sonrisa más blanca en 7 días</h1>
 <div class="sub">Uso desde casa • Sin dolor • Sin clínicas</div>
 
-<img src="https://imgur.com/a/Adp4ppy" alt="Producto">
+<img src="IM1.png" alt="Producto 1">
+<img src="IM2.png" alt="Producto 2">
+<img src="IM3.png" alt="Producto 3">
 
 <div class="box">
 <h2>¿Cómo se usa?</h2>
@@ -118,6 +158,24 @@ button:hover {
 Pago contra entrega • Stock limitado hoy
 </div>
 
+<!-- FAQ -->
+<h2 style="margin-top:30px; color:#ff7a00;">Preguntas Frecuentes</h2>
+
+<div class="faq-item">
+<h3>¿ES SEGURO PARA DIENTES SENSIBLES? <span>+</span></h3>
+<p>¡Sí! Nuestra fórmula sin peróxido está específicamente diseñada para dientes sensibles. Los ingredientes suaves trabajan efectivamente sin causar sensibilidad ni daño a tu esmalte.</p>
+</div>
+
+<div class="faq-item">
+<h3>¿CUÁNTO DURAN LOS RESULTADOS? <span>+</span></h3>
+<p>Los resultados típicamente duran 2–3 meses, dependiendo de tus hábitos. Se pueden hacer retoques cada pocos meses para mantener tu sonrisa brillante. Evita alimentos y bebidas que manchan para mejores resultados.</p>
+</div>
+
+<div class="faq-item">
+<h3>¿PUEDO USARLO CON CORONAS O CARILLAS? <span>+</span></h3>
+<p>Aunque nuestro sistema de blanqueamiento es seguro de usar con trabajo dental, ten en cuenta que solo blanquea dientes naturales. Las coronas, carillas y otros materiales dentales no cambiarán de color.</p>
+</div>
+
 </div>
 
 <script>
@@ -126,6 +184,22 @@ function comprar(){
     const numero = "595982164843"; // TU NUMERO
     window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`, "_blank");
 }
+
+// Acordeón FAQ
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const p = item.querySelector('p');
+        const span = item.querySelector('span');
+        if(p.style.display === "block"){
+            p.style.display = "none";
+            span.textContent = "+";
+        } else {
+            p.style.display = "block";
+            span.textContent = "-";
+        }
+    });
+});
 </script>
 
 </body>
