@@ -676,29 +676,7 @@
 }
 </script>
 
-<script>
-    const popup = document.getElementById('popup-oferta');
-    const tiempoReaparicion = 25000; // 25 segundos
 
-    function mostrarPopup() {
-        popup.style.display = 'block';
-    }
-
-    function cerrarPopup() {
-        popup.style.display = 'none';
-        // Programar la siguiente aparición
-        setTimeout(mostrarPopup, tiempoReaparicion);
-    }
-
-    function aplicarDescuento() {
-        const mensajeDescuento = "Hola! Quiero mi Kit Blanqueador con el 5% de descuento extra que me salió en la página. (Precio final: Gs. 132.000)";
-        window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensajeDescuento), "_blank");
-        cerrarPopup();
-    }
-
-    // Primera aparición a los 10 segundos de entrar a la web
-    setTimeout(mostrarPopup, 10000);
-</script>
 <body>
 
     <div class="promo-bar">🔥 ÚLTIMAS 12 CAJAS EN STOCK - ENVÍO GRATIS</div>
@@ -875,9 +853,68 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
+    const popup = document.getElementById('popup-oferta');
+
+    const primeraAparicion = 15000;   // 15 segundos
+    const tiempoReaparicion = 45000;  // 45 segundos
+    const maximoIntentos = 2;         // solo mostrar 2 veces
+
+    // contador por sesión (no usa cookies, solo sessionStorage)
+    let intentosMostrados = sessionStorage.getItem('popupIntentos');
+
+    if (!intentosMostrados) {
+        sessionStorage.setItem('popupIntentos', 0);
+        intentosMostrados = 0;
+    } else {
+        intentosMostrados = parseInt(intentosMostrados);
+    }
+
+    function mostrarPopup() {
+        if (intentosMostrados >= maximoIntentos) return;
+
+        popup.style.display = 'block';
+
+        intentosMostrados++;
+        sessionStorage.setItem('popupIntentos', intentosMostrados);
+    }
+
+    function cerrarPopup() {
+        popup.style.display = 'none';
+
+        if (intentosMostrados < maximoIntentos) {
+            setTimeout(mostrarPopup, tiempoReaparicion);
+        }
+    }
+
+    function aplicarDescuento() {
+        const mensaje = "¡Hola! Vengo de la Web. Quiero mi Kit con el 5% de DESCUENTO (Gs. 132.000).";
+        window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
+        cerrarPopup();
+    }
+
+    // hacer funciones accesibles a los botones HTML
+    window.cerrarPopup = cerrarPopup;
+    window.aplicarDescuento = aplicarDescuento;
+
+    // Primera aparición (15s)
+    if (intentosMostrados < maximoIntentos) {
+        setTimeout(mostrarPopup, primeraAparicion);
+    }
+});
+
+
+// BOTÓN NORMAL SIN DESCUENTO
+function enviarWA() {
+    const mensaje = "¡Hola! Vengo de la Web. Quiero el Kit Blanqueador de Gs. 139.000 con Envío Gratis.";
+    window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
+}
+</script>
 </body>
 </html>
+
 
 
 
