@@ -1,303 +1,345 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tiras Blanqueadoras</title>
-<!-- Alerta superior -->
-<div style="width:100%; background:#FF4500; color:#fff; font-weight:bold; padding:5px 0; overflow:hidden; white-space:nowrap; box-sizing:border-box;">
-  <div style="display:inline-block; padding-left:100%; animation:slide 10s linear infinite;">
-    ¡Envío gratis a todo el país! ¡Oferta por tiempo limitado! Stock muy reducido, ¡comprá antes que se agoten!
-  </div>
-</div>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '4404782796514268');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4404782796514268&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Estilo de animación -->
-<style>
-@keyframes slide {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhiteStrips Paraguay | Sonrisa Perfecta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff7a00;
+            --dark: #000000;
+            --gray-light: #f4f4f4;
+            --success: #25D366;
+        }
 
-<!-- Caja de precios mejorada -->
-<div class="box" style="border:2px solid #FFA500; padding:15px; border-radius:10px; background:#000; color:#FFA500; text-align:center; font-family:sans-serif; margin-top:10px;">
-  <h3 style="margin-bottom:10px;">¡Oferta por tiempo limitado! ⏳</h3>
-  <div class="price" style="font-size:18px; margin:5px 0;"><strong>1 Caja:</strong> Gs. 139.000</div>
-  <div class="price" style="font-size:18px; margin:5px 0; color:#FFD700;"><strong>2 Cajas:</strong> Gs. 249.000 <span style="font-size:16px; color:#FF4500;">(Ahorrás Gs. 29.000)</span></div>
-  <div style="margin-top:10px; font-weight:bold; font-size:16px; color:#FF6347;">¡Stock limitado, comprá antes que se agoten!</div>
-</div>
-<!-- Popup de descuento -->
-<div id="discountPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
-  <div style="background:#000; color:#FFA500; padding:20px; border-radius:10px; text-align:center; max-width:400px; font-family:sans-serif;">
-    <h2>¡Espera! ⏳</h2>
-    <p>Por quedarte en nuestra web te ofrecemos un <strong>5% de descuento</strong> en tu compra.</p>
-<a href="https://wa.me/595982164843?text=%C2%A1Hola!%20Vengo%20a%20aprovechar%20el%205%25%20de%20descuento%20desde%20la%20web%20en%20las%20Tiras%20Blanqueadoras.%20Quiero%20cerrar%20mi%20pedido%20ahora."
-   target="_blank"
-   style="display:inline-block; margin-top:15px; padding:10px 20px; background:#FF4500; color:#fff; text-decoration:none; border-radius:5px; font-weight:bold;">
-   Aprovechar 5% de descuento
-</a>
-    <br>
-    <button id="noThanksBtn"
-            style="margin-top:10px; background:none; border:none; color:#FFA500; cursor:pointer; text-decoration:underline;">
-      No gracias
-    </button>
-  </div>
-</div>
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: #fff;
+            color: #1d1d1f;
+            overflow-x: hidden;
+        }
 
-<script>
-let popupTimer;
+        /* Barra de Anuncio Estilo Behipnos */
+        .promo-bar {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-// Función para mostrar popup
-function showPopup() {
-  document.getElementById('discountPopup').style.display = 'flex';
-}
+        /* Hero Section */
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
+            background: #fff;
+        }
 
-// Función para ocultar popup y reiniciar el timer
-function hidePopup() {
-  document.getElementById('discountPopup').style.display = 'none';
-  // Vuelve a mostrar después de 20s
-  popupTimer = setTimeout(showPopup, 20000);
-}
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
 
-// Inicializa popup la primera vez después de 20s
-popupTimer = setTimeout(showPopup, 20000);
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
 
-// Evento para botón “No gracias”
-document.getElementById('noThanksBtn').addEventListener('click', hidePopup);
-</script>
+        /* Botones de Acción */
+        .btn-primary {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 10px 20px rgba(255,122,0,0.3);
+            width: 90%;
+            max-width: 350px;
+            transition: transform 0.2s;
+        }
 
-</script>
+        .btn-primary:active { transform: scale(0.95); }
 
-<style>
-body {
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#0f0f0f;
-    color:#fff;
-    text-align:center;
-}
+        /* Sección de Resultados (Social Proof) */
+        .results-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
 
-.container {
-    max-width:600px;
-    margin:auto;
-    padding:25px;
-}
+        .result-card {
+            min-width: 280px;
+            background: var(--gray-light);
+            border-radius: 20px;
+            padding: 15px;
+            scroll-snap-align: center;
+        }
 
-h1 {
-    color:#ff7a00;
-    font-size:28px;
-    margin-bottom:10px;
-}
+        .result-card img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
 
-.sub {
-    font-size:18px;
-    margin-bottom:25px;
-}
+        .result-card p {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
 
-img {
-    width:100%;
-    border-radius:12px;
-    margin:20px 0;
-}
+        /* Tabla Comparativa: CLAVE PARA CONVERTIR */
+        .comparison-section {
+            padding: 40px 20px;
+            background: var(--dark);
+            color: white;
+            border-radius: 30px 30px 0 0;
+        }
 
-.box {
-    background:#1c1c1c;
-    padding:20px;
-    border-radius:12px;
-    margin:20px 0;
-}
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-.price {
-    font-size:26px;
-    color:#ff7a00;
-    font-weight:bold;
-}
+        .comparison-table td, .comparison-table th {
+            padding: 15px 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+            font-size: 14px;
+        }
 
-ul {
-    text-align:left;
-    line-height:1.6;
-}
+        .check { color: var(--success); font-weight: bold; }
+        .cross { color: #ff4b4b; font-weight: bold; }
 
-button {
-    width:100%;
-    padding:18px;
-    font-size:18px;
-    background:#ff7a00;
-    border:none;
-    color:white;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
+        /* Caja de Oferta */
+        .pricing-card {
+            margin: 40px 20px;
+            padding: 30px;
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            text-align: center;
+            background: #fff9f2;
+        }
 
-button:hover {
-    background:#ff8f2a;
-}
+        .price-tag {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--dark);
+            margin: 10px 0;
+        }
 
-.footer {
-    margin-top:25px;
-    font-size:14px;
-    color:#aaa;
-}
+        .badge-shipping {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
+        }
 
-/* Carrusel simple de imágenes */
-.carousel {
-    display:flex;
-    overflow-x:auto;
-    gap:10px;
-}
+        /* WhatsApp Flotante */
+        .wa-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            background: var(--success);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            z-index: 100;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.3);
+        }
 
-.carousel img {
-    flex:0 0 auto;
-    width:45%;
-}
-
-/* FAQ acordeón */
-.faq-item {
-    background:#1c1c1c;
-    border-radius:10px;
-    margin:10px 0;
-    text-align:left;
-    padding:15px;
-    cursor:pointer;
-}
-
-.faq-item h3 {
-    margin:0;
-    font-size:16px;
-    color:#ff7a00;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.faq-item p {
-    display:none;
-    margin-top:10px;
-    font-size:14px;
-    color:#ccc;
-}
-</style>
+    </style>
 </head>
+<style>
+    #popup-oferta {
+        display: none;
+        position: fixed;
+        bottom: 100px; /* Por encima del botón de WhatsApp */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 340px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        z-index: 2000;
+        padding: 20px;
+        text-align: center;
+        border: 2px solid var(--accent);
+        animation: slideUp 0.5s ease-out;
+    }
 
+    @keyframes slideUp {
+        from { bottom: -100px; opacity: 0; }
+        to { bottom: 100px; opacity: 1; }
+    }
+
+    .popup-title {
+        color: var(--dark);
+        font-weight: 800;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .popup-desc {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .popup-btn-si {
+        display: block;
+        background: var(--success);
+        color: white;
+        text-decoration: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .popup-btn-no {
+        color: #999;
+        font-size: 12px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
+
+<div id="popup-oferta">
+    <div class="popup-title">🎁 ¡REGALO EXCLUSIVO!</div>
+    <div class="popup-desc">Vimos que estás interesado. Si pides ahora, te aplicamos un <b>5% EXTRA</b> de descuento.</div>
+    
+    <a href="#" onclick="aplicarDescuento()" class="popup-btn-si">¡APROVECHAR DESCUENTO!</a>
+    <button onclick="cerrarPopup()" class="popup-btn-no">No gracias, prefiero pagar el precio total</button>
+</div>
+
+<script>
+    const popup = document.getElementById('popup-oferta');
+    const tiempoReaparicion = 25000; // 25 segundos
+
+    function mostrarPopup() {
+        popup.style.display = 'block';
+    }
+
+    function cerrarPopup() {
+        popup.style.display = 'none';
+        // Programar la siguiente aparición
+        setTimeout(mostrarPopup, tiempoReaparicion);
+    }
+
+    function aplicarDescuento() {
+        const mensajeDescuento = "Hola! Quiero mi Kit Blanqueador con el 5% de descuento extra que me salió en la página. (Precio final: Gs. 132.000)";
+        window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensajeDescuento), "_blank");
+        cerrarPopup();
+    }
+
+    // Primera aparición a los 10 segundos de entrar a la web
+    setTimeout(mostrarPopup, 10000);
+</script>
 <body>
 
-<div class="container">
+    <div class="promo-bar">🔥 ÚLTIMAS 12 CAJAS EN STOCK - ENVÍO GRATIS</div>
 
-<h1>Sonrisa más blanca en 7 días</h1>
-<div class="sub">Uso desde casa • Sin dolor</div>
+    <section class="hero">
+        <h1>La forma más fácil de blanquear tus dientes.</h1>
+        <p>Resultados profesionales desde la primera aplicación, sin salir de casa.</p>
+        <a href="#ordenar" class="btn-primary">COMPRAR AHORA</a>
+    </section>
 
-<img src="./IM1.png" alt="Producto 1">
-<img src="./IM2.png" alt="Producto 2">
-<img src="./IM3.png" alt="Producto 3">
+    <div class="results-scroll">
+        <div class="result-card">
+            <img src="./IM1.png">
+            <p>"No puedo creer lo blanco que quedaron en una semana. ¡100% recomendado!"</p>
+        </div>
+        <div class="result-card">
+            <img src="./IM2.png">
+            <p>"Tengo dientes sensibles y no sentí NADA de dolor. Increíble."</p>
+        </div>
+        <div class="result-card">
+            <img src="./IM3.png">
+        </div>
+    </div>
 
+    <section class="comparison-section">
+        <h2 style="text-align: center; font-size: 28px;">¿Por qué elegirnos?</h2>
+        <table class="comparison-table">
+            <tr>
+                <th>Característica</th>
+                <th>Nosotros</th>
+                <th>Otros</th>
+            </tr>
+            <tr>
+                <td>Sin Sensibilidad</td>
+                <td class="check">✔</td>
+                <td class="cross">✘</td>
+            </tr>
+            <tr>
+                <td>Resultados en 7 días</td>
+                <td class="check">✔</td>
+                <td class="cross">✘</td>
+            </tr>
+            <tr>
+                <td>Pago al Recibir</td>
+                <td class="check">✔</td>
+                <td class="cross">✘</td>
+            </tr>
+        </table>
+    </section>
 
-<div class="box">
-<h2>¿Cómo se usa?</h2>
-<ul>
-<li>Colocás las tiras</li>
-<li>Esperás 30 minutos</li>
-<li>Repetís por 7 días</li>
-</ul>
-</div>
+    <div class="pricing-card" id="ordenar">
+        <span class="badge-shipping">🚚 ENVÍO GRATIS A TODO PARAGUAY</span>
+        <h2 style="margin-bottom:0">Kit Blanqueamiento 5D</h2>
+        <p style="text-decoration: line-through; color: #999; margin: 5px 0;">Gs. 180.000</p>
+        <div class="price-tag">Gs. 139.000</div>
+        <p><strong>Pagas al recibir</strong> en efectivo o transferencia.</p>
+        <a href="#" onclick="enviarWA()" class="btn-primary">RESERVAR PEDIDO</a>
+    </div>
 
-<div class="box">
-<h2>Beneficios</h2>
-<ul>
-<li>No daña el esmalte</li>
-<li>Tratamiento estético domiciliario</li>
-<li>Resultados progresivos naturales</li>
-</ul>
-</div>
+    <div style="height: 100px;"></div> <a href="#" onclick="enviarWA()" class="wa-float">
+        💬 Pedir por WhatsApp (Pagas al recibir)
+    </a>
 
-<div class="box" style="border:2px solid #FFA500; padding:15px; border-radius:10px; background:#000; color:#FFA500; text-align:center; font-family:sans-serif;">
-  <h3 style="margin-bottom:10px;">¡Oferta por tiempo limitado! ⏳</h3>
-  <div class="price" style="font-size:18px; margin:5px 0;"><strong>1 Caja:</strong> Gs. 139.000</div>
-  <div class="price" style="font-size:18px; margin:5px 0; color:#FFD700;"><strong>2 Cajas:</strong> Gs. 249.000 <span style="font-size:16px; color:#FF4500;">(Ahorrás Gs. 29.000)</span></div>
-  <div style="margin-top:10px; font-weight:bold; font-size:16px; color:#FF6347;">¡Stock limitado, comprá antes que se agoten!</div>
-</div>
-
-<p>Entrega hoy en Asunción y Central.
-¡Envío gratis a todo el país!</p>
-</div>
-
-<button onclick="comprar()">QUIERO RECIBIR HOY</button>
-
-<div class="footer">
-Pago contra entrega • Stock limitado hoy
-</div>
-
-<!-- FAQ -->
-<h2 style="margin-top:30px; color:#ff7a00;">Preguntas Frecuentes</h2>
-
-<div class="faq-item">
-<h3>¿ES SEGURO PARA DIENTES SENSIBLES? <span>+</span></h3>
-<p>¡Sí! Nuestra fórmula sin peróxido está específicamente diseñada para dientes sensibles. Los ingredientes suaves trabajan efectivamente sin causar sensibilidad ni daño a tu esmalte.</p>
-</div>
-
-<div class="faq-item">
-<h3>¿CUÁNTO DURAN LOS RESULTADOS? <span>+</span></h3>
-<p>Los resultados típicamente duran 2–3 meses, dependiendo de tus hábitos. Se pueden hacer retoques cada pocos meses para mantener tu sonrisa brillante. Evita alimentos y bebidas que manchan para mejores resultados.</p>
-</div>
-
-<div class="faq-item">
-<h3>¿PUEDO USARLO CON CORONAS O CARILLAS? <span>+</span></h3>
-<p>Aunque nuestro sistema de blanqueamiento es seguro de usar con trabajo dental, ten en cuenta que solo blanquea dientes naturales. Las coronas, carillas y otros materiales dentales no cambiarán de color.</p>
-</div>
-
-</div>
-
-<script>
-function comprar(){
-    const mensaje = "¡Hola! Quiero aprovechar la oferta de las Tiras Blanqueadoras y hacer mi pedido ahora.";
-    const numero = "595982164843"; // TU NUMERO
-    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`, "_blank");
+    <script>
+// Para el botón normal de la web
+function enviarWA() {
+    const mensaje = "¡Hola! Vengo de la Web. Quiero el Kit Blanqueador de Gs. 139.000 con Envío Gratis. [ORIGEN: WEB-DIRECTO]";
+    window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
 }
 
-// Acordeón FAQ
-const faqItems = document.querySelectorAll('.faq-item');
-faqItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const p = item.querySelector('p');
-        const span = item.querySelector('span');
-        if(p.style.display === "block"){
-            p.style.display = "none";
-            span.textContent = "+";
-        } else {
-            p.style.display = "block";
-            span.textContent = "-";
-        }
-    });
-});
-</script>
+// Para el botón del Pop-up de descuento
+function aplicarDescuento() {
+    const mensajeDescuento = "¡Hola! Vengo de la Web. Quiero mi Kit con el 5% de DESCUENTO (Gs. 132.000). [ORIGEN: POPUP-5%]";
+    window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensajeDescuento), "_blank");
+    cerrarPopup();
+}
+    </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
