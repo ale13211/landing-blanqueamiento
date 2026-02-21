@@ -95,46 +95,120 @@
             box-shadow: 0 12px 25px rgba(255,122,0,0.4);
         }
 
-        /* Sección de Resultados (Social Proof) */
+        /* Sección de Resultados (Social Proof) - Carrusel */
         .results-scroll {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             overflow-x: auto;
+            overflow-y: hidden;
             padding: 16px;
             scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             margin: 0 auto;
             justify-content: flex-start;
-            scroll-behavior: smooth;
+            /* Ocultar scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+
+        /* Scrollbar para Chrome/Edge */
+        .results-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .results-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .results-scroll::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .results-scroll::-webkit-scrollbar-thumb:hover {
+            background: #ff9f33;
         }
 
         .result-card {
-            min-width: clamp(240px, 85vw, 300px);
-            background: var(--gray-light);
+            min-width: clamp(260px, 90vw, 340px);
+            background: white;
+            border: 1px solid #e0e0e0;
             border-radius: 20px;
-            padding: 12px;
-            scroll-snap-align: start;
+            padding: 14px;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
         .result-card img {
             width: 100%;
-            height: clamp(280px, 60vw, 320px);
+            height: clamp(300px, 70vw, 340px);
             object-fit: cover;
             border-radius: 15px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: block;
         }
 
         .result-card p {
             font-size: clamp(13px, 3vw, 15px);
             font-weight: 500;
-            line-height: 1.4;
+            line-height: 1.5;
             margin: 0;
             padding: 0 5px;
             flex-grow: 1;
+            color: #555;
+        }
+
+        /* Carrusel indicadores */
+        .carousel-hint {
+            text-align: center;
+            padding: 8px 0;
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* Flechas de navegación (opcional) */
+        .carousel-nav {
+            display: none;
+            justify-content: space-between;
+            padding: 0 16px;
+            margin-top: 10px;
+        }
+
+        .carousel-arrow {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(255,122,0,0.2);
+        }
+
+        .carousel-arrow:hover {
+            box-shadow: 0 6px 16px rgba(255,122,0,0.3);
+            transform: scale(1.05);
+        }
+
+        .carousel-arrow:active {
+            transform: scale(0.95);
         }
 
         /* Tabla Comparativa: CLAVE PARA CONVERTIR */
@@ -275,12 +349,13 @@
             }
 
             .result-card {
-                min-width: clamp(280px, 20vw, 340px);
-                padding: 15px;
+                min-width: clamp(300px, 25vw, 360px);
+                padding: 16px;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.1);
             }
 
             .result-card img {
-                height: clamp(300px, 25vw, 350px);
+                height: clamp(320px, 28vw, 380px);
                 object-fit: cover;
             }
 
@@ -337,16 +412,20 @@
             }
 
             .results-scroll {
-                padding: 30px 50px;
-                gap: 25px;
+                padding: 35px 50px;
+                gap: 30px;
+                justify-content: flex-start;
+                scroll-padding: 50px;
             }
 
             .result-card {
-                min-width: clamp(300px, 22vw, 360px);
+                min-width: 360px;
+                padding: 18px;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.1);
             }
 
             .result-card img {
-                height: clamp(320px, 26vw, 380px);
+                height: 380px;
                 object-fit: cover;
             }
 
@@ -405,19 +484,22 @@
             }
 
             .results-scroll {
-                padding: 35px 80px;
-                gap: 30px;
+                padding: 40px 80px;
+                gap: 35px;
                 max-width: 1400px;
                 margin: 0 auto;
+                justify-content: flex-start;
+                scroll-padding: 80px;
             }
 
             .result-card {
-                min-width: 380px;
-                padding: 18px;
+                min-width: 400px;
+                padding: 20px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
             }
 
             .result-card img {
-                height: 400px;
+                height: 420px;
                 object-fit: cover;
             }
 
@@ -605,7 +687,7 @@
         <a href="#ordenar" class="btn-primary">COMPRAR AHORA</a>
     </section>
 
-    <div class="results-scroll">
+    <div class="results-scroll" id="carrusel">
         <div class="result-card">
             <img src="./IM1.png" alt="Resultado antes y después">
             <p>"No puedo creer lo blanco que quedaron en una semana. ¡100% recomendado!"</p>
@@ -618,6 +700,7 @@
             <img src="./IM3.png" alt="Resultado testimonial">
         </div>
     </div>
+    <div class="carousel-hint">← Desliza para ver más →</div>
 
     <section class="comparison-section">
         <h2>¿Por qué elegirnos?</h2>
@@ -677,6 +760,45 @@ function aplicarDescuento() {
     window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensajeDescuento), "_blank");
     cerrarPopup();
 }
+
+// Mejorar experiencia del carrusel en móviles
+document.addEventListener('DOMContentLoaded', function() {
+    const carrusel = document.getElementById('carrusel');
+    let isScrolling = false;
+    let startX;
+    let scrollLeft;
+
+    // Touch events para mejor experiencia en móviles
+    carrusel.addEventListener('touchstart', function(e) {
+        isScrolling = true;
+        startX = e.touches[0].pageX - carrusel.offsetLeft;
+        scrollLeft = carrusel.scrollLeft;
+    });
+
+    carrusel.addEventListener('touchend', function() {
+        isScrolling = false;
+    });
+
+    carrusel.addEventListener('touchmove', function(e) {
+        if (!isScrolling) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - carrusel.offsetLeft;
+        const walk = (x - startX) * 0.5;
+        carrusel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Ocultar hint después de 5 segundos
+    const hint = document.querySelector('.carousel-hint');
+    if (hint) {
+        setTimeout(() => {
+            hint.style.opacity = '0';
+            hint.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                hint.style.display = 'none';
+            }, 500);
+        }, 5000);
+    }
+});
     </script>
 
 </body>
