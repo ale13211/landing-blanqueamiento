@@ -138,6 +138,7 @@
             background: var(--dark);
             color: white;
             border-radius: 30px 30px 0 0;
+            max-width: none;
         }
 
         .comparison-section h2 {
@@ -239,94 +240,202 @@
             }
 
             .hero {
-                padding: 50px 30px 60px;
+                padding: 45px 40px 55px;
+                max-width: 1200px;
+                margin: 0 auto;
             }
 
             .hero h1 {
-                font-size: 52px;
-                margin-bottom: 25px;
+                font-size: clamp(40px, 6vw, 52px);
+                margin-bottom: 20px;
             }
 
             .hero p {
-                font-size: 20px;
-                margin-bottom: 35px;
+                font-size: clamp(17px, 4vw, 20px);
+                margin-bottom: 30px;
             }
 
             .btn-primary {
-                padding: 22px 50px;
-                font-size: 18px;
+                padding: clamp(18px, 3vw, 22px) clamp(35px, 6vw, 50px);
+                font-size: clamp(16px, 3.5vw, 18px);
                 width: auto;
             }
 
             .results-scroll {
-                padding: 25px 30px;
+                padding: 25px 40px;
                 gap: 20px;
                 justify-content: center;
+                max-width: 1200px;
+                margin: 0 auto;
             }
 
             .result-card {
-                min-width: 320px;
+                min-width: clamp(280px, 20vw, 340px);
                 padding: 15px;
             }
 
             .comparison-section {
-                padding: 50px;
+                padding: 45px 50px;
+                max-width: 1200px;
+                margin: 0 auto;
+                border-radius: 0;
+            }
+
+            .comparison-section h2 {
+                font-size: clamp(26px, 5vw, 32px);
             }
 
             .comparison-table {
-                font-size: 16px;
+                font-size: clamp(14px, 2vw, 16px);
             }
 
             .comparison-table td, .comparison-table th {
-                padding: 18px 15px;
+                padding: clamp(14px, 2.5vw, 18px) clamp(12px, 2vw, 15px);
             }
 
             .pricing-card {
-                padding: 40px;
+                padding: clamp(30px, 5vw, 45px);
+                margin: 45px auto;
+                max-width: 550px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .wa-float {
+                bottom: 25px;
+                right: 25px;
+                left: auto;
+                width: auto;
+                padding: clamp(14px, 2vw, 16px) clamp(24px, 3vw, 28px);
+                font-size: clamp(15px, 2.5vw, 16px);
+            }
+        }
+
+        /* Responsive para laptops y pantallas medianas (1024px - 1439px) */
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .hero {
+                padding: 50px 50px 65px;
+            }
+
+            .hero h1 {
+                font-size: clamp(44px, 5vw, 50px);
+            }
+
+            .hero p {
+                font-size: clamp(18px, 3.5vw, 21px);
+                max-width: 700px;
+            }
+
+            .results-scroll {
+                padding: 30px 50px;
+                gap: 25px;
+            }
+
+            .result-card {
+                min-width: clamp(300px, 22vw, 360px);
+            }
+
+            .comparison-section {
+                padding: 50px 60px;
+            }
+
+            .comparison-section h2 {
+                font-size: 32px;
+            }
+
+            .pricing-card {
+                padding: 45px;
                 margin: 50px auto;
+                max-width: 580px;
+            }
+
+            .price-tag {
+                font-size: clamp(44px, 8vw, 56px);
             }
 
             .wa-float {
                 bottom: 30px;
                 right: 30px;
-                left: auto;
-                width: auto;
-                padding: 16px 28px;
+                padding: 16px 30px;
                 font-size: 16px;
             }
         }
 
-        /* Responsive para laptops grandes */
-        @media (min-width: 1024px) {
+        /* Responsive para laptops grandes (1440px+) */
+        @media (min-width: 1440px) {
+            body {
+                font-size: 17px;
+            }
+
             .hero {
-                padding: 60px 40px 80px;
+                padding: 60px 80px 80px;
+                max-width: 1400px;
+                margin: 0 auto;
             }
 
             .hero h1 {
                 font-size: 56px;
+                margin-bottom: 25px;
             }
 
             .hero p {
                 font-size: 22px;
+                max-width: 800px;
+                margin-bottom: 40px;
+            }
+
+            .btn-primary {
+                padding: 22px 55px;
+                font-size: 18px;
             }
 
             .results-scroll {
-                padding: 30px;
-                justify-content: center;
-                gap: 25px;
+                padding: 35px 80px;
+                gap: 30px;
+                max-width: 1400px;
+                margin: 0 auto;
             }
 
             .result-card {
-                min-width: 340px;
+                min-width: 380px;
+                padding: 18px;
             }
 
             .comparison-section {
-                padding: 60px 80px;
+                padding: 60px 100px;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            .comparison-section h2 {
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+
+            .comparison-table {
+                font-size: 17px;
+            }
+
+            .comparison-table td, .comparison-table th {
+                padding: 20px 18px;
             }
 
             .pricing-card {
-                margin: 60px auto;
                 padding: 50px;
+                margin: 60px auto;
+                max-width: 600px;
+            }
+
+            .price-tag {
+                font-size: 60px;
+                margin: 20px 0;
+            }
+
+            .wa-float {
+                bottom: 35px;
+                right: 35px;
+                padding: 18px 32px;
+                font-size: 17px;
             }
         }
 
