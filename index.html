@@ -657,14 +657,24 @@
             }
         }
 </style>
-
-<div id="popup-oferta">
-    <div class="popup-title">🎁 ¡REGALO EXCLUSIVO!</div>
-    <div class="popup-desc">Vimos que estás interesado. Si pides ahora, te aplicamos un <b>5% EXTRA</b> de descuento.</div>
-    
-    <a href="#" onclick="aplicarDescuento()" class="popup-btn-si">¡APROVECHAR DESCUENTO!</a>
-    <button onclick="cerrarPopup()" class="popup-btn-no">No gracias, prefiero pagar el precio total</button>
-</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Product",
+ "name": "Kit Blanqueamiento Dental 5D",
+ "description": "Tiras blanqueadoras dentales con envío en Paraguay",
+ "brand": {
+   "@type": "Brand",
+   "name": "DOMRA"
+ },
+ "offers": {
+   "@type": "Offer",
+   "priceCurrency": "PYG",
+   "price": "139000",
+   "availability": "https://schema.org/InStock"
+ }
+}
+</script>
 
 <script>
     const popup = document.getElementById('popup-oferta');
@@ -692,9 +702,16 @@
 <body>
 
     <div class="promo-bar">🔥 ÚLTIMAS 12 CAJAS EN STOCK - ENVÍO GRATIS</div>
-
+    <div id="popup-oferta">
+        <div class="popup-title">🎁 ¡REGALO EXCLUSIVO!</div>
+        <div class="popup-desc">Vimos que estás interesado. Si pides ahora, te aplicamos un <b>5% EXTRA</b> de descuento.</div>
+        
+        <a href="#" onclick="aplicarDescuento()" class="popup-btn-si">¡APROVECHAR DESCUENTO!</a>
+        <button onclick="cerrarPopup()" class="popup-btn-no">No gracias, prefiero pagar el precio total</button>
+    </div>
+    
     <section class="hero">
-        <h1>La forma más fácil de blanquear tus dientes.</h1>
+        <h1>Tiras Blanqueadoras en Paraguay para Blanquear tus Dientes en Casa</h1>
         <p>Resultados profesionales desde la primera aplicación, sin salir de casa.</p>
         <h2>¿Qué son las tiras blanqueadoras?</h2>
         <p>
@@ -749,7 +766,20 @@
             </tbody>
         </table>
     </section>
-
+    <section style="padding:40px 20px; max-width:900px; margin:auto;">
+        <h2>Tiras Blanqueadoras en Asunción con Envío a Todo Paraguay</h2>
+        
+        <p>
+        Si estás buscando tiras blanqueadoras en Paraguay, este método permite mejorar
+        el color de los dientes desde casa sin tratamientos costosos. Cada kit está diseñado
+        para eliminar manchas producidas por café, mate, vino o tabaco.
+        </p>
+        
+        <p>
+        Realizamos envíos rápidos en Asunción, Gran Asunción y a todo Paraguay.
+        Pagás al recibir el producto.
+        </p>
+     </section>
     <div class="pricing-card" id="ordenar">
         <span class="badge-shipping">🚚 ENVÍO GRATIS A TODO PARAGUAY</span>
         <h2>Kit Blanqueamiento 5D</h2>
@@ -848,6 +878,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
