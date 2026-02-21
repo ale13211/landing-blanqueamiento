@@ -107,6 +107,7 @@
             -webkit-overflow-scrolling: touch;
             margin: 0 auto;
             justify-content: flex-start;
+            align-items: flex-start;
             /* Ocultar scrollbar */
             scrollbar-width: thin;
             scrollbar-color: var(--accent) transparent;
@@ -136,7 +137,7 @@
             border: 1px solid #e0e0e0;
             border-radius: 20px;
             padding: 14px;
-            scroll-snap-align: center;
+            scroll-snap-align: start;
             scroll-snap-stop: always;
             flex-shrink: 0;
             display: flex;
@@ -767,6 +768,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScrolling = false;
     let startX;
     let scrollLeft;
+
+    // Asegurarse de que el carrusel empieza en la posición correcta
+    carrusel.scrollLeft = 0;
 
     // Touch events para mejor experiencia en móviles
     carrusel.addEventListener('touchstart', function(e) {
