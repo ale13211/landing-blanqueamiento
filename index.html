@@ -99,9 +99,9 @@
         .results-scroll {
             display: flex;
             gap: 15px;
-            overflow-x: auto;
+            overflow-x: scroll;
             overflow-y: hidden;
-            padding: 16px;
+            padding: 20px 16px;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
@@ -111,20 +111,22 @@
             /* Ocultar scrollbar */
             scrollbar-width: thin;
             scrollbar-color: var(--accent) transparent;
+            -webkit-appearance: none;
         }
 
         /* Scrollbar para Chrome/Edge */
         .results-scroll::-webkit-scrollbar {
-            height: 6px;
+            height: 8px;
         }
 
         .results-scroll::-webkit-scrollbar-track {
-            background: transparent;
+            background: #f0f0f0;
+            border-radius: 10px;
         }
 
         .results-scroll::-webkit-scrollbar-thumb {
             background: var(--accent);
-            border-radius: 3px;
+            border-radius: 10px;
         }
 
         .results-scroll::-webkit-scrollbar-thumb:hover {
@@ -132,9 +134,9 @@
         }
 
         .result-card {
-            min-width: clamp(260px, 90vw, 340px);
+            min-width: clamp(240px, 95vw, 340px);
             background: white;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #e8e8e8;
             border-radius: 20px;
             padding: 14px;
             scroll-snap-align: start;
@@ -153,15 +155,17 @@
 
         .result-card img {
             width: 100%;
-            height: clamp(300px, 70vw, 340px);
+            height: clamp(280px, 65vw, 340px);
             object-fit: cover;
             border-radius: 15px;
             margin-bottom: 14px;
             display: block;
+            pointer-events: none;
+            user-select: none;
         }
 
         .result-card p {
-            font-size: clamp(13px, 3vw, 15px);
+            font-size: clamp(13px, 3.5vw, 15px);
             font-weight: 500;
             line-height: 1.5;
             margin: 0;
@@ -173,10 +177,16 @@
         /* Carrusel indicadores */
         .carousel-hint {
             text-align: center;
-            padding: 8px 0;
+            padding: 10px 16px;
             font-size: 12px;
             color: #999;
             font-weight: 600;
+            animation: fadeInOut 0.5s ease-in;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         /* Flechas de navegación (opcional) */
@@ -344,19 +354,19 @@
             .results-scroll {
                 padding: 25px 40px;
                 gap: 20px;
-                justify-content: center;
+                justify-content: flex-start;
                 max-width: 1200px;
                 margin: 0 auto;
             }
 
             .result-card {
-                min-width: clamp(300px, 25vw, 360px);
+                min-width: clamp(280px, 22vw, 360px);
                 padding: 16px;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.1);
             }
 
             .result-card img {
-                height: clamp(320px, 28vw, 380px);
+                height: clamp(300px, 24vw, 360px);
                 object-fit: cover;
             }
 
@@ -762,46 +772,70 @@ function aplicarDescuento() {
     cerrarPopup();
 }
 
-// Mejorar experiencia del carrusel en móviles
+// Optimización del carrusel para móviles
 document.addEventListener('DOMContentLoaded', function() {
     const carrusel = document.getElementById('carrusel');
+    const hint = document.querySelector('.carousel-hint');
+    let touchStartX = 0;
+    let touchEndX = 0;
     let isScrolling = false;
-    let startX;
-    let scrollLeft;
 
-    // Asegurarse de que el carrusel empieza en la posición correcta
+    // Resetear scroll al inicio
     carrusel.scrollLeft = 0;
 
-    // Touch events para mejor experiencia en móviles
-    carrusel.addEventListener('touchstart', function(e) {
-        isScrolling = true;
-        startX = e.touches[0].pageX - carrusel.offsetLeft;
-        scrollLeft = carrusel.scrollLeft;
-    });
-
-    carrusel.addEventListener('touchend', function() {
+    // Detectar toque y deslizamiento
+    carrusel.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
         isScrolling = false;
-    });
+    }, { passive: true });
 
-    carrusel.addEventListener('touchmove', function(e) {
-        if (!isScrolling) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - carrusel.offsetLeft;
-        const walk = (x - startX) * 0.5;
-        carrusel.scrollLeft = scrollLeft - walk;
-    });
+    carrusel.addEventListener('touchmove', (e) => {
+        isScrolling = true;
+    }, { passive: true });
 
-    // Ocultar hint después de 5 segundos
-    const hint = document.querySelector('.carousel-hint');
+    carrusel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        
+        // Si se deslizó más de 50px, es un swipe válido
+        if (!isScrolling || Math.abs(touchEndX - touchStartX) < 30) {
+            return; // Es un tap, no un swipe
+        }
+    }, { passive: true });
+
+    // Mejorar el scroll snap behavior
+    carrusel.addEventListener('scroll', () => {
+        // Feedback visual del scroll
+        if (carrusel.scrollLeft > 0) {
+            carrusel.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1) inset';
+        } else {
+            carrusel.style.boxShadow = 'none';
+        }
+    }, { passive: true });
+
+    // Ocultar hint después de 4 segundos
     if (hint) {
         setTimeout(() => {
             hint.style.opacity = '0';
-            hint.style.transition = 'opacity 0.5s ease';
+            hint.style.transition = 'opacity 0.4s ease';
             setTimeout(() => {
                 hint.style.display = 'none';
-            }, 500);
-        }, 5000);
+            }, 400);
+        }, 4000);
     }
+
+    // Prevenir zoom accidental al hacer doble tap en tarjetas
+    let lastTap = 0;
+    const cards = document.querySelectorAll('.result-card');
+    cards.forEach(card => {
+        card.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            if (tapLength < 300 && tapLength > 0) {
+                e.preventDefault();
+            }
+            lastTap = currentTime;
+        }, { passive: false });
+    });
 });
     </script>
 
