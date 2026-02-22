@@ -8,6 +8,29 @@
     <title>Tiras Blanqueadoras en Paraguay | Blanqueamiento Dental en Casa | DOMRA</title>
     <meta name="description" content="Compra tiras blanqueadoras en Paraguay con envío rápido en Asunción y Central. Resultados visibles en pocos días.">    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];
+t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '4404782796514268');
+fbq('track', 'PageView');
+</script>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4404782796514268&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+    
     <style>
         * {
             box-sizing: border-box;
@@ -890,30 +913,34 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function aplicarDescuento() {
-        const mensaje = "¡Hola! Vengo de la Web. Quiero mi Kit con el 5% de DESCUENTO (Gs. 132.000).";
-        window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
-        cerrarPopup();
-    }
-
-    // hacer funciones accesibles a los botones HTML
-    window.cerrarPopup = cerrarPopup;
-    window.aplicarDescuento = aplicarDescuento;
-
-    // Primera aparición (15s)
-    if (intentosMostrados < maximoIntentos) {
-        setTimeout(mostrarPopup, primeraAparicion);
-    }
-});
-
+    const mensaje = "¡Hola! Vengo de la Web. Quiero mi Kit con el 5% de DESCUENTO (Gs. 132.000).";
+    
+    // 📌 Pixel: registrar Lead
+    fbq('track', 'Lead');
+    
+    window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
+    cerrarPopup();
+}
 
 // BOTÓN NORMAL SIN DESCUENTO
 function enviarWA() {
     const mensaje = "¡Hola! Vengo de la Web. Quiero el Kit Blanqueador de Gs. 139.000 con Envío Gratis.";
+
+    // 📌 Pixel: registrar Lead
+    fbq('track', 'Lead');
+    
     window.open("https://wa.me/595982164843?text=" + encodeURIComponent(mensaje), "_blank");
 }
+
+// Hacer funciones accesibles globalmente
+window.cerrarPopup = cerrarPopup;
+window.aplicarDescuento = aplicarDescuento;
+window.enviarWA = enviarWA;
+    
 </script>
 </body>
 </html>
+
 
 
 
