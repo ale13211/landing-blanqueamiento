@@ -885,7 +885,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const tiempoReaparicion = 45000;  // 45 segundos
     const maximoIntentos = 2;         // solo mostrar 2 veces
 
-    // contador por sesión (no usa cookies, solo sessionStorage)
     let intentosMostrados = sessionStorage.getItem('popupIntentos');
 
     if (!intentosMostrados) {
@@ -911,6 +910,14 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(mostrarPopup, tiempoReaparicion);
         }
     }
+
+    // ✅ Mostrar popup por primera vez después de "primeraAparicion"
+    setTimeout(mostrarPopup, primeraAparicion);
+
+    // Hacer funciones accesibles globalmente
+    window.cerrarPopup = cerrarPopup;
+    window.mostrarPopup = mostrarPopup;
+});
 
     function aplicarDescuento() {
     const mensaje = "¡Hola! Vengo de la Web. Quiero mi Kit con el 5% de DESCUENTO (Gs. 132.000).";
@@ -940,6 +947,7 @@ window.enviarWA = enviarWA;
 </script>
 </body>
 </html>
+
 
 
 
