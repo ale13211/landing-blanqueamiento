@@ -1,0 +1,19 @@
+{
+  "name": "landeng-whatsapp-server",
+  "version": "1.0.0",
+  "description": "Servidor para recibir pedidos desde formulario y enviar notificaciones vía WhatsApp Cloud API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
