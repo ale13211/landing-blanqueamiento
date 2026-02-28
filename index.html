@@ -1088,7 +1088,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (err) {
             console.error(err);
-            alert('No se pudo conectar con el servidor. Revisa la consola.');
+            // Fallback: abrir wa.me prellenado al operador para poder procesar el pedido manualmente
+            const operatorNumber = '595982164843';
+            const waMsg = `Nuevo pedido de ${nombre} ${apellido}. Tel: ${telefono}. Departamento: ${departamento}. Ciudad: ${ciudad}. Dirección: ${direccion}. Referencia: ${referencia}. Total: ${payload.total}`;
+            window.open('https://wa.me/' + operatorNumber + '?text=' + encodeURIComponent(waMsg), '_blank');
+
+            // Mostrar confirmación en la UI aunque el envío automático falló
+            mensajeExito.style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('form-overlay').style.display = 'none';
+                mensajeExito.style.display = 'none';
+                formPedido.reset();
+                precioBase = 139000;
+                actualizarTotal();
+            }, 4000);
         }
     });
 });
