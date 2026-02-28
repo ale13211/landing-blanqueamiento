@@ -43,15 +43,25 @@ app.post('/api/order', async (req, res) => {
   try {
     const { nombre, apellido, telefono, direccion, referencia, departamento, ciudad, total } = req.body;
 
+    console.log('Nuevo /api/order request:', { nombre, apellido, telefono, departamento, ciudad, total });
+
     if (!nombre || !telefono) return res.status(400).json({ error: 'Falta nombre o teléfono' });
 
     // Normalizar teléfono (el cliente debe enviar con código de país sin +)
     const clientPhone = telefono.replace(/\D+/g, '');
 
-    // 1) Notificar al operador
+    // 1) Notificar al operador (solo si están las credenciales)
     const operadorMsg = `Nuevo pedido:\nNombre: ${nombre} ${apellido}\nTel: ${clientPhone}\nDepto: ${departamento}\nCiudad: ${ciudad}\nDirección: ${direccion}\nReferencia: ${referencia}\nTotal: ${total}`;
 
-    await sendWhatsAppText(OPERATOR_NUMBER, operadorMsg);
+    if (WA_PHONE_ID && WA_TOKEN && OPERATOR_NUMBER) {
+      try {
+        await sendWhatsAppText(OPERATOR_NUMBER, operadorMsg);
+      } catch (err) {
+        console.warn('Fallo al notificar al operador:', err.response ? err.response.data : err.message);
+      }
+    } else {
+      console.log('No se enviará notificación al operador: faltan credenciales en .env');
+    }
 
     // 2) Enviar respuesta automática al cliente con detalles de envío y confirmación
     // Nota: si tu cuenta necesita plantillas aprobadas, reemplaza por una plantilla aprobada.
@@ -59,11 +69,15 @@ app.post('/api/order', async (req, res) => {
 
     // Intentamos enviar al cliente (puede fallar si la política / plantillas no están en regla)
     let clienteResp = null;
-    try {
-      clienteResp = await sendWhatsAppText(clientPhone, clienteMsg);
-    } catch (err) {
-      // Si falla, seguimos pero reportamos el error en la respuesta
-      console.warn('No se pudo enviar mensaje automático al cliente (posible falta de plantilla o permiso).');
+    if (WA_PHONE_ID && WA_TOKEN) {
+      try {
+        clienteResp = await sendWhatsAppText(clientPhone, clienteMsg);
+      } catch (err) {
+        // Si falla, seguimos pero reportamos el error en la respuesta
+        console.warn('No se pudo enviar mensaje automático al cliente (posible falta de plantilla o permiso).');
+      }
+    } else {
+      console.log('No se enviará mensaje al cliente: faltan credenciales WA_PHONE_ID/WA_ACCESS_TOKEN');
     }
 
     return res.json({ ok: true, operadorNotified: true, clienteNotified: !!clienteResp });
