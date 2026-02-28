@@ -707,7 +707,7 @@ src="https://www.facebook.com/tr?id=4404782796514268&ev=PageView&noscript=1"/>
         <div class="popup-title">🎁 ¡REGALO EXCLUSIVO!</div>
         <div class="popup-desc">Vimos que estás interesado. Si pides ahora, te aplicamos un <b>5% EXTRA</b> de descuento.</div>
         
-        <a href="#" onclick="aplicarDescuento()" class="popup-btn-si">¡APROVECHAR DESCUENTO!</a>
+        <a href="#" onclick="aplicarDescuento()" class="btn-primary">¡APROVECHAR DESCUENTO!</a>
         <button onclick="cerrarPopup()" class="popup-btn-no">No gracias, prefiero pagar el precio total</button>
     </div>
     
@@ -720,7 +720,10 @@ src="https://www.facebook.com/tr?id=4404782796514268&ev=PageView&noscript=1"/>
         de forma segura. Son una alternativa práctica al blanqueamiento profesional y muy
         utilizadas por personas que buscan mejorar su sonrisa sin tratamientos costosos.
         </p>
-        <a href="#ordenar" class="btn-primary">COMPRAR AHORA</a>
+        <a href="#ordenar" class="btn-primary">
+            CLICK AQUÍ, PAGA EN CASA<br>
+            PAGA SOLO AL RECIBIR
+        </a>
     </section>
 
     <div class="results-scroll" id="carrusel">
@@ -787,14 +790,13 @@ src="https://www.facebook.com/tr?id=4404782796514268&ev=PageView&noscript=1"/>
         <p style="text-decoration: line-through; color: #999; margin: 8px 0;">Gs. 180.000</p>
         <div class="price-tag">Gs. 139.000</div>
         <p><strong>Pagas al recibir</strong> en efectivo o transferencia.</p>
-        <a href="#" onclick="enviarWA()" class="btn-primary">RESERVAR PEDIDO</a>
+        <a href="#" onclick="enviarWA()" class="btn-primary">
+            CLICK AQUÍ, PAGA EN CASA<br>
+            PAGA SOLO AL RECIBIR
+        </a> 
     </div>
 
     <div style="height: 110px;"></div>
-
-    <a href="#" onclick="enviarWA()" class="wa-float">
-        💬 Pedir por WhatsApp (Pagas al recibir)
-    </a>
 
     <script>
 // Para el botón normal de la web
@@ -945,12 +947,189 @@ window.aplicarDescuento = aplicarDescuento;
 window.enviarWA = enviarWA;
     
 </script>
+<<!-- VENTANA EMERGENTE -->
+<div id="form-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  
+  <div style="background:#fff; width:90%; max-width:420px; padding:25px; border-radius:20px; position:relative;">
+    
+    <button onclick="cerrarFormulario()" 
+    style="position:absolute; right:15px; top:10px; background:none; border:none; font-size:22px; cursor:pointer;">
+    ✕
+    </button>
+
+    <h3>Completa tus datos</h3>
+
+    <form id="formPedido">
+
+      <input type="text" id="nombre" placeholder="Nombre" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+      <input type="text" id="apellido" placeholder="Apellido" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+      <input type="tel" id="telefono" placeholder="Teléfono con WhatsApp" required pattern="[0-9]{9,12}" style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+      <input type="text" id="direccion" placeholder="Dirección de entrega" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+      <input type="text" id="referencia" placeholder="Referencia de la casa" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+
+            <!-- Se usan los selects simplificados más abajo: solo aparecerán una vez departamento y ciudad -->
+<!-- Departamento -->
+<select id="departamento" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+    <option value="" disabled selected>Selecciona tu departamento</option>
+    <option value="Central">Central</option>
+    <option value="Asunción">Asunción</option>
+    <option value="Otro">Otro</option>
+</select>
+
+<!-- Ciudad -->
+<select id="ciudad" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+    <option value="" disabled selected>Selecciona tu ciudad</option>
+</select>
+
+<!-- Total de la compra -->
+<p id="totalCompra" style="font-weight:bold; margin-bottom:10px;">Total: Gs. 139.000</p>
+      <button type="submit" class="btn-primary" style="width:100%;">
+        CONFIRMAR PEDIDO
+      </button>
+
+    </form>
+    <div id="mensaje-exito" style="display:none; background:#e8f5e9; color:#2e7d32; padding:15px; border-radius:12px; margin-top:15px; text-align:center; font-weight:600;">
+    ✅ Pedido realizado con éxito. Recibirás un mensaje al WhatsApp con los detalles de tu pedido. ¡Muchas gracias por tu compra!
+</div>
+  </div>
+</div>
+<script>
+function enviarWA(){
+precioBase = 139000;
+actualizarTotal();  
+  document.getElementById("form-overlay").style.display = "flex";
+}
+
+function aplicarDescuento(){
+precioBase = 132000;
+actualizarTotal();
+  document.getElementById("form-overlay").style.display = "flex";
+}
+
+function cerrarFormulario(){
+  document.getElementById("form-overlay").style.display = "none";
+}
+</script>
+<script>
+
+let precioBase = 139000; // precio normal
+let envio = 0;
+
+// Si usas descuento, cambia precioBase dinámicamente desde tu función aplicarDescuento()
+
+function actualizarTotal(){
+    const departamento = document.getElementById("departamento").value;
+
+    // Envío gratis para Central y Asunción
+    if(departamento === "Central" || departamento === "Asunción"){
+        envio = 0;
+    } else {
+        envio = 10000; // envío interior
+    }
+
+    const total = precioBase + envio;
+
+    document.getElementById("totalCompra").textContent = "Total: Gs. " + total.toLocaleString("es-PY");
+
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const formPedido = document.getElementById('formPedido');
+    const mensajeExito = document.getElementById('mensaje-exito');
+
+    formPedido.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevenir que recargue la página
+
+        // Capturar datos del formulario
+        const nombre = formPedido.querySelector('input[placeholder="Nombre"]').value;
+        const apellido = formPedido.querySelector('input[placeholder="Apellido"]').value;
+        let telefono = formPedido.querySelector('input[placeholder="Teléfono con WhatsApp"]').value;
+        const direccion = formPedido.querySelector('input[placeholder="Dirección de entrega"]').value;
+        const referencia = formPedido.querySelector('input[placeholder="Referencia de la casa"]').value;
+        const departamento = document.getElementById('departamento').value;
+        const ciudad = document.getElementById('ciudad').value;
+
+        // Normalizar teléfono (sin +, solo números)
+        telefono = telefono.replace(/\D+/g, '');
+
+        // Obtener total mostrado (sin texto)
+        const totalText = document.getElementById('totalCompra').textContent || '';
+
+        const payload = {
+            nombre,
+            apellido,
+            telefono,
+            direccion,
+            referencia,
+            departamento,
+            ciudad,
+            total: totalText.replace(/[^0-9Gs\.\s,]/g, '').trim() || 'Gs. 139.000'
+        };
+
+        try {
+            const resp = await fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await resp.json();
+            if (resp.ok && data.ok) {
+                mensajeExito.style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('form-overlay').style.display = 'none';
+                    mensajeExito.style.display = 'none';
+                    formPedido.reset();
+                    // reset total
+                    precioBase = 139000;
+                    actualizarTotal();
+                }, 4000);
+            } else {
+                alert('Error al enviar el pedido al servidor: ' + (data.error || JSON.stringify(data)));
+            }
+        } catch (err) {
+            console.error(err);
+            alert('No se pudo conectar con el servidor. Revisa la consola.');
+        }
+    });
+});
+// Obtener selects y total
+const departamentoSelect = document.getElementById('departamento');
+const ciudadSelect = document.getElementById('ciudad');
+const totalCompra = document.getElementById('totalCompra');
+
+// Ciudades por departamento
+const ciudadesPorDepartamento = {
+    "Asunción": ["Asunción"],
+    "Central": ["San Lorenzo", "Luque", "Capiatá", "Lambaré", "Fernando de la Mora", "Ñemby", "Itauguá"],
+    "Otro": ["Ciudad del Este", "Encarnación", "Pedro Juan Caballero", "Otra ciudad fuera de Asunción/Central"]
+};
+
+// Llenar ciudades al elegir departamento
+departamentoSelect.addEventListener('change', function() {
+    const departamento = this.value;
+
+    // Limpiar ciudades
+    ciudadSelect.innerHTML = '<option value="" disabled selected>Selecciona tu ciudad</option>';
+
+    // Agregar ciudades
+    if (ciudadesPorDepartamento[departamento]) {
+        ciudadesPorDepartamento[departamento].forEach(ciudad => {
+            const option = document.createElement('option');
+            option.value = ciudad;
+            option.textContent = ciudad;
+            ciudadSelect.appendChild(option);
+        });
+    }
+
+    // Actualizar total al cambiar departamento
+    actualizarTotal();
+});
+
+// Actualizar total al elegir ciudad
+ciudadSelect.addEventListener('change', function() {
+    actualizarTotal();
+});
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
