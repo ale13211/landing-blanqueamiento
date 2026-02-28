@@ -947,10 +947,10 @@ window.aplicarDescuento = aplicarDescuento;
 window.enviarWA = enviarWA;
     
 </script>
-<<!-- VENTANA EMERGENTE -->
+<!-- VENTANA EMERGENTE -->
 <div id="form-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
   
-  <div style="background:#fff; width:90%; max-width:420px; padding:25px; border-radius:20px; position:relative;">
+  <div style="background:#fff; width:90%; max-width:400px; padding:25px; border-radius:20px; position:relative;">
     
     <button onclick="cerrarFormulario()" 
     style="position:absolute; right:15px; top:10px; background:none; border:none; font-size:22px; cursor:pointer;">
@@ -960,39 +960,115 @@ window.enviarWA = enviarWA;
     <h3>Completa tus datos</h3>
 
     <form id="formPedido">
+      <input type="text" name="nombre" placeholder="Nombre" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+      <input type="text" name="apellido" placeholder="Apellido" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+      <input type="text" name="telefono" placeholder="Teléfono con WhatsApp" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+      <input type="text" name="direccion" placeholder="Dirección de entrega" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+      <input type="text" name="referencia" placeholder="Referencia de la casa" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
 
-      <input type="text" id="nombre" placeholder="Nombre" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-      <input type="text" id="apellido" placeholder="Apellido" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-      <input type="tel" id="telefono" placeholder="Teléfono con WhatsApp" required pattern="[0-9]{9,12}" style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-      <input type="text" id="direccion" placeholder="Dirección de entrega" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-      <input type="text" id="referencia" placeholder="Referencia de la casa" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
+      <!-- Departamento y Ciudad -->
+      <select name="departamento" id="departamento" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+        <option value="">Selecciona Departamento</option>
+        <option value="Asunción">Asunción</option>
+        <option value="Central">Central</option>
+        <option value="Otro">Otro</option>
+      </select>
 
-            <!-- Se usan los selects simplificados más abajo: solo aparecerán una vez departamento y ciudad -->
-<!-- Departamento -->
-<select id="departamento" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-    <option value="" disabled selected>Selecciona tu departamento</option>
-    <option value="Central">Central</option>
-    <option value="Asunción">Asunción</option>
-    <option value="Otro">Otro</option>
-</select>
+      <select name="ciudad" id="ciudad" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd; font-size:16px;">
+        <option value="">Selecciona Ciudad</option>
+      </select>
 
-<!-- Ciudad -->
-<select id="ciudad" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;">
-    <option value="" disabled selected>Selecciona tu ciudad</option>
-</select>
+      <div style="margin-bottom:15px; font-weight:bold;">
+        Total: Gs. <span id="totalPedido">139.000</span>
+      </div>
 
-<!-- Total de la compra -->
-<p id="totalCompra" style="font-weight:bold; margin-bottom:10px;">Total: Gs. 139.000</p>
-      <button type="submit" class="btn-primary" style="width:100%;">
-        CONFIRMAR PEDIDO
-      </button>
-
+      <button type="submit" class="btn-primary" style="width:100%;">CONFIRMAR PEDIDO</button>
     </form>
-    <div id="mensaje-exito" style="display:none; background:#e8f5e9; color:#2e7d32; padding:15px; border-radius:12px; margin-top:15px; text-align:center; font-weight:600;">
-    ✅ Pedido realizado con éxito. Recibirás un mensaje al WhatsApp con los detalles de tu pedido. ¡Muchas gracias por tu compra!
-</div>
+
   </div>
 </div>
+
+<script>
+// Ciudades según departamento
+const ciudadesPorDepto = {
+  "Asunción": ["Asunción"],
+  "Central": ["Luque","San Lorenzo","Fernando de la Mora","Lambaré","Capiatá","Ñemby","Areguá","Itauguá","Tebicuary","Ypané"],
+  "Otro": ["Ciudad 1","Ciudad 2","Ciudad 3"] // agrega otras ciudades fuera de Central/Asunción si quieres
+};
+
+// Actualizar ciudades al cambiar departamento
+document.getElementById('departamento').addEventListener('change', function() {
+    const depto = this.value;
+    const ciudadSelect = document.getElementById('ciudad');
+    ciudadSelect.innerHTML = '<option value="">Selecciona Ciudad</option>';
+    if (ciudadesPorDepto[depto]) {
+        ciudadesPorDepto[depto].forEach(ciudad => {
+            const opt = document.createElement('option');
+            opt.value = ciudad;
+            opt.textContent = ciudad;
+            ciudadSelect.appendChild(opt);
+        });
+    }
+
+    // Actualizar total según departamento
+    const totalEl = document.getElementById('totalPedido');
+    if (depto === "Asunción" || depto === "Central") {
+        totalEl.textContent = "139.000";
+    } else if (depto === "Otro") {
+        totalEl.textContent = "149.000";
+    } else {
+        totalEl.textContent = "139.000";
+    }
+});
+
+// Evitar zoom en móviles al enfocar inputs
+const overlay = document.getElementById('form-overlay');
+const inputs = overlay.querySelectorAll('input, select, textarea');
+inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        overlay.style.position = 'absolute';
+        overlay.style.top = window.scrollY + 50 + 'px';
+    });
+    input.addEventListener('blur', () => {
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+    });
+});
+
+// Funciones de apertura y cierre
+function abrirFormulario() { overlay.style.display = 'flex'; }
+function cerrarFormulario() { overlay.style.display = 'none'; }
+
+// Manejar envío del formulario
+document.getElementById('formPedido').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    const data = {
+        nombre: formData.get('nombre'),
+        apellido: formData.get('apellido'),
+        telefono: formData.get('telefono'),
+        direccion: formData.get('direccion'),
+        referencia: formData.get('referencia'),
+        departamento: formData.get('departamento'),
+        ciudad: formData.get('ciudad'),
+        total: document.getElementById('totalPedido').textContent
+    };
+
+    // Aquí puedes llamar tu endpoint Node.js
+    fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        alert("Pedido realizado con éxito.\nRecibirás un mensaje al WhatsApp con detalles de tu pedido. Muchas gracias por tu compra.");
+        cerrarFormulario();
+    }).catch(() => {
+        alert("Error al enviar pedido. Intenta nuevamente.");
+    });
+});
+</script>
+
 <script>
 function enviarWA(){
 precioBase = 139000;
