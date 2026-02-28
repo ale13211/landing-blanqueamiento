@@ -66,6 +66,50 @@ body {
   80% { transform: translateX(5px); }
   100% { transform: translateX(0); }
 }
+@media (max-width: 768px) { /* tablets y móviles */
+  .hero {
+    padding: 40px 15px 30px; /* menos espacio arriba */
+  }
+  .btn-primary {
+    max-width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  .results-scroll {
+    padding: 15px 10px;
+    gap: 12px;
+  }
+  .result-card img {
+    height: 200px; /* más pequeño en móvil */
+  }
+  .comparison-section {
+    padding: 30px 15px;
+  }
+  .comparison-table td, .comparison-table th {
+    padding: 8px 5px;
+    font-size: 14px;
+  }
+  .pricing-wrapper {
+    gap: 15px;
+  }
+  .pricing-card {
+    padding: 18px;
+  }
+}
+@media (max-width: 480px) {
+  .result-card {
+    min-width: 180px; /* cards más pequeños */
+    padding: 10px;
+  }
+  .result-card img {
+    height: 150px;
+  }
+}
+@media (max-width: 768px) {
+  h1 { font-size: clamp(22px,6vw,36px); }
+  h2 { font-size: clamp(18px,5vw,28px); }
+  p { font-size: 14px; line-height: 1.4; }
+}
 
 .btn-shake {
   animation: shake 0.5s; /* dura medio segundo */
