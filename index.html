@@ -487,11 +487,10 @@ const botones = document.querySelectorAll('.btn-primary'); // todos los botones
 setInterval(() => {
     botones.forEach(btn => {
         btn.classList.add('btn-shake'); // agrega clase para animar
-
-        // quitar clase después de la animación para poder repetir
         setTimeout(() => btn.classList.remove('btn-shake'), 500);
     });
-}, 4000); // cada 5000 ms = 5 segundos
+}, 4000); // cada 4000 ms = 4 segundos
+
 function abrirFormulario(precio){
     if(precio) precioBase = precio;
     totalPedido.textContent = 'Total: Gs. ' + precioBase.toLocaleString();
@@ -550,28 +549,17 @@ document.getElementById('formPedido').addEventListener('submit', async function(
             body:JSON.stringify(data)
         });
         const result = await resp.json();
-        if(resp.ok && result.ok){ alert('Pedido realizado con éxito'); cerrarFormulario(); f.reset(); actualizarTotal(); }
-        else throw 'Error en el servidor';
+        if(resp.ok && result.ok){ 
+            alert('Pedido realizado con éxito'); 
+            cerrarFormulario(); f.reset(); actualizarTotal(); 
+        } else throw 'Error en el servidor';
     }catch(err){
-    // fallback a WhatsApp - funciona en PC y móviles
-    const waMsg = `Nuevo pedido de ${data.nombre} ${data.apellido}. Tel: ${data.telefono}. Departamento: ${data.departamento}. Ciudad: ${data.ciudad}. Dirección: ${data.direccion}. Referencia: ${data.referencia}. Total: Gs. ${data.total}`;
-    
-    // Creamos link visible y seguro para cualquier dispositivo
-    const waLink = `https://wa.me/595982164843?text=${encodeURIComponent(waMsg)}`;
-    
-    // Abrir enlace dentro de evento de usuario (click)
-    const a = document.createElement('a');
-    a.href = waLink;
-    a.target = '_blank';
-    a.click();
-
-    // Mensaje realista para el usuario
-    alert('Tu pedido está listo en WhatsApp. Toca enviar para confirmar.');
-
-    cerrarFormulario(); 
-    f.reset(); 
-    actualizarTotal();
-}
+        // fallback a WhatsApp confiable
+        const waMsg = `Nuevo pedido de ${data.nombre} ${data.apellido}. Tel: ${data.telefono}. Departamento: ${data.departamento}. Ciudad: ${data.ciudad}. Dirección: ${data.direccion}. Referencia: ${data.referencia}. Total: Gs. ${data.total}`;
+        const waLink = `https://wa.me/595982164843?text=${encodeURIComponent(waMsg)}`;
+        window.location.href = waLink; // confiable en iOS y Android
+        cerrarFormulario(); f.reset(); actualizarTotal();
+    }
 });
 </script>
 
