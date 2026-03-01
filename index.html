@@ -552,11 +552,6 @@ document.getElementById('formPedido').addEventListener('submit', async function(
         const result = await resp.json();
         if(resp.ok && result.ok){ alert('Pedido realizado con éxito'); cerrarFormulario(); f.reset(); actualizarTotal(); }
         else throw 'Error en el servidor';
-    } catch(err){
-        // fallback a WhatsApp
-        const waMsg = `Nuevo pedido de ${data.nombre} ${data.apellido}. Tel: ${data.telefono}. Departamento: ${data.departamento}. Ciudad: ${data.ciudad}. Dirección: ${data.direccion}. Referencia: ${data.referencia}. Total: Gs. ${data.total}`;
-        window.open('https://wa.me/595982164843?text='+encodeURIComponent(waMsg),'_blank');
-        cerrarFormulario(); f.reset(); actualizarTotal();
     }
 });
 </script>
