@@ -186,6 +186,77 @@ body {
         font-size: 14px; 
     }
 }
+/* PASOS */
+.pasos-compra {
+  text-align: center;
+  padding: 30px 20px;
+  background: #f9f9f9;
+}
+.pasos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+.paso {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.paso.destacado {
+  background: #25d366;
+  color: #fff;
+}
+
+/* BENEFICIOS */
+.beneficios {
+  padding: 30px 20px;
+}
+.beneficios ul {
+  list-style: none;
+  padding: 0;
+}
+.beneficios li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* URGENCIA */
+.urgencia {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 25px 15px;
+  margin: 30px 0;
+  border-radius: 12px;
+}
+.urgencia .no-reposicion {
+  color: #ff5252;
+  font-weight: bold;
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  padding: 14px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+.whatsapp-float small {
+  font-weight: normal;
+  font-size: 12px;
+}
+
 /* Carrusel Resultados */
 .results-scroll{
     display:flex;
@@ -282,6 +353,40 @@ body {
 <button class="btn-primary" onclick="abrirFormulario(139000)">
     CLICK AQUÍ, PAGA EN CASA<br>PAGA SOLO AL RECIBIR
 </button>
+<section class="pasos-compra">
+  <h2>¿Cómo comprar?</h2>
+  <div class="pasos-grid">
+    <div class="paso">1️⃣ Completás el formulario</div>
+    <div class="paso">2️⃣ Tocás <strong>Confirmar pedido</strong></div>
+    <div class="paso">3️⃣ Se abre WhatsApp automáticamente</div>
+    <div class="paso destacado">4️⃣ Coordinamos envío y forma de pago</div>
+  </div>
+
+  <div class="condiciones-pago">
+    <p><strong>💰 Forma de pago:</strong></p>
+    <p>✔️ Asunción y alrededores: <strong>pagás al recibir</strong></p>
+    <p>✔️ Interior del país (transportadora): <strong>pago adelantado</strong></p>
+  </div>
+</section>
+<section class="beneficios">
+  <h2>Blanqueá tus dientes desde casa</h2>
+  <ul>
+    <li>✔️ Resultados visibles desde la primera aplicación</li>
+    <li>✔️ Seguro, fácil y sin dolor</li>
+    <li>✔️ Entrega rápida en todo Paraguay</li>
+    <li><strong>✔️ Pagás al recibir</strong></li>
+  </ul>
+</section>
+<section class="urgencia">
+  <p>⏳ <strong>Liquidación por tiempo limitado</strong></p>
+  <p>📦 Últimos <strong>12 kits disponibles</strong></p>
+  <p class="no-reposicion">❌ No se repone este precio</p>
+</section>
+<a href="https://wa.me/595982164843?text=Hola%20quiero%20pedir%20el%20kit%20blanqueador.%20Pago%20al%20recibir."
+   class="whatsapp-float"
+   target="_blank">
+  💬 Pedir ahora<br><small>Pago al recibir</small>
+</a>
 </section>
 
 <div class="results-scroll" id="carrusel">
