@@ -556,7 +556,6 @@ document.getElementById('formPedido').addEventListener('submit', async function(
         // fallback a WhatsApp
         const waMsg = `Nuevo pedido de ${data.nombre} ${data.apellido}. Tel: ${data.telefono}. Departamento: ${data.departamento}. Ciudad: ${data.ciudad}. Dirección: ${data.direccion}. Referencia: ${data.referencia}. Total: Gs. ${data.total}`;
         window.open('https://wa.me/595982164843?text='+encodeURIComponent(waMsg),'_blank');
-        alert('Pedido enviado vía WhatsApp');
         cerrarFormulario(); f.reset(); actualizarTotal();
     }
 });
