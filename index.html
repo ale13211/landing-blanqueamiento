@@ -308,28 +308,67 @@ body {
 .badge-shipping{ position:absolute; top:16px; left:50%; transform:translateX(-50%); background: var(--accent); color:white; padding:4px 12px; border-radius:12px; font-weight:bold; }
 .price-tag{ font-size:1.8rem; color: var(--accent); font-weight:bold; margin:8px 0; }
 
-/* Popup */
+/* --- Popup corregido para iOS --- */
 #form-overlay{
     display:none;
-    position:fixed;
+    position: fixed;
     inset:0;
     background: rgba(0,0,0,0.6);
     justify-content:center;
-    align-items:center;
-    z-index:10000; /* aseguramos que quede encima de todo */
+    align-items:flex-start; /* ajustamos para scroll si se abre teclado */
+    z-index:10000;
+    overflow-y: auto;
+    padding: 40px 0; /* espacio superior/inferior para iOS */
 }
+
 #form-overlay .popup-form{
-    background:white; width:90%; max-width:400px; padding:25px; border-radius:20px; position:relative;
+    background:white;
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:20px;
+    position: relative;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 90vh; /* asegura que no se desborde en pantalla pequeña */
+    overflow-y: auto; /* scroll interno si el teclado tapa inputs */
+    box-sizing: border-box;
 }
+
 #form-overlay button.close-btn{
-    position:absolute; top:10px; right:15px; background:none; border:none; font-size:22px; cursor:pointer;
+    position:absolute;
+    top:10px;
+    right:15px;
+    background:none;
+    border:none;
+    font-size:22px;
+    cursor:pointer;
 }
-#form-overlay h3{ text-align:center; margin-bottom:15px; }
+
+#form-overlay h3{
+    text-align:center;
+    margin-bottom:15px;
+}
 #form-overlay input, #form-overlay select{
-    width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd; font-size:16px;
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    font-size:16px;
 }
-#form-overlay .btn-primary{ width:100%; margin-top:10px; }
-#totalPedido{ font-weight:bold; margin-bottom:10px; display:block; text-align:center; font-size:16px; }
+#form-overlay .btn-primary{
+    width:100%;
+    margin-top:10px;
+}
+#totalPedido{
+    font-weight:bold;
+    margin-bottom:10px;
+    display:block;
+    text-align:center;
+    font-size:16px;
+}
 </style>
 
 <script type="application/ld+json">
