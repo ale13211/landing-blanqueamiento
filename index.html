@@ -43,19 +43,35 @@ body {
     color:#1d1d1f;
     overflow-x:hidden;
 }
-/* Barra Promo */
-.promo-bar{
-    background: var(--dark);
-    color:white;
-    text-align:center;
-    padding:12px 15px;
-    font-weight:600;
-    font-size:13px;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:9999;
+
+/* Barra Promo con texto deslizante */
+.promo-bar {
+    background: #000; /* fondo negro */
+    color: white;
+    text-align: center;
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 13px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Texto que se desliza */
+.promo-bar span {
+    display: inline-block;
+    white-space: nowrap;
+    transform: translateX(100%);
+    animation: slideText 10s linear infinite;
+}
+
+@keyframes slideText {
+    0% { transform: translateX(100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 /* Animación de sacudida */
 @keyframes shake {
@@ -384,8 +400,9 @@ body {
 </head>
 
 <body>
-<div class="promo-bar">🔥 ÚLTIMAS 12 CAJAS EN STOCK - ENVÍO GRATIS</div>
-
+<div class="promo-bar">
+    <span>🔥 ÚLTIMAS 12 CAJAS EN STOCK - ENVÍO GRATIS</span>
+</div>
 <section class="hero">
     <h1>Tiras Blanqueadoras en Paraguay para Blanquear tus Dientes en Casa</h1>
     <p>Resultados profesionales desde la primera aplicación, sin salir de casa.</p>
