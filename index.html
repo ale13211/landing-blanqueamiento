@@ -432,17 +432,19 @@ ciudadSelect.appendChild(option);
 }
 
 }
-function abrirFormulario(precio, e) {
-    document.getElementById('totalPedido').textContent = 'Total: Gs. ' + precio.toLocaleString();
+function abrirFormulario(precio) {
     const overlay = document.getElementById('form-overlay');
+    document.getElementById('totalPedido').textContent = 'Total: Gs. ' + precio.toLocaleString();
 
-    // Mostrar overlay y animación
     overlay.style.display = 'flex';
 
-    // pequeño delay para animar
-    setTimeout(() => {
-        overlay.classList.add('show');
-    }, 10);
+    // Para móviles: hacer scroll suave hacia el popup
+    overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function cerrarFormulario() {
+    const overlay = document.getElementById('form-overlay');
+    overlay.style.display = 'none';
 }
 
 function cerrarFormulario() {
