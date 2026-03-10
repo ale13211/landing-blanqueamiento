@@ -275,8 +275,28 @@ padding-bottom:100px;
 
 
 /* POPUP iOS */
-#form-overlay{ display:none; position: fixed; inset:0; background: rgba(0,0,0,0.6); justify-content:center; align-items:flex-start; z-index:10000; overflow-y:auto; padding:40px 0; }
-#form-overlay .popup-form{ background:white; width:90%; max-width:400px; padding:25px; border-radius:20px; position: relative; margin: 0 auto; top:50%; transform: translateY(-50%); max-height:90vh; overflow-y:auto; box-sizing:border-box; }
+#form-overlay {
+  display: none;
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.6);
+  z-index:10000;
+}
+
+#form-overlay .popup-form{
+  position: absolute; /* absoluto dentro del overlay */
+  top: 0;
+  left: 0;
+  width: 90%;
+  max-width: 400px;
+  padding: 25px;
+  border-radius: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transform: none; /* quitar el centrado automático */
+}
+
 #form-overlay button.close-btn{ position:absolute; top:10px; right:15px; background-color:#25D366; border:none; font-size:22px; cursor:pointer; }
 #form-overlay h3{ text-align:center; margin-bottom:15px; }
 #form-overlay input, #form-overlay select{ width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd; font-size:16px; }
@@ -325,7 +345,8 @@ padding-bottom:100px;
   <img src="./hero-blanqueamiento.jpg" alt="Dientes blancos resultado">
   </div>
 <!-- Botón en Hero -->
-<button class="btn-primary" onclick="abrirFormulario(139000)">
+<!-- Hero -->
+<button class="btn-primary" onclick="abrirFormulario(139000, event)">
     QUIERO BLANQUEAR MIS DIENTES
 </button>
 
@@ -402,9 +423,23 @@ ciudadSelect.appendChild(option);
 }
 
 }
-function abrirFormulario(precio){
+function abrirFormulario(precio, e){
     document.getElementById('totalPedido').textContent = 'Total: Gs. ' + precio.toLocaleString();
-    document.getElementById('form-overlay').style.display = 'flex';
+    const overlay = document.getElementById('form-overlay');
+    const form = overlay.querySelector('.popup-form');
+
+    // Obtener posición del clic
+    const x = e.clientX; // horizontal respecto a la ventana
+    const y = e.clientY; // vertical respecto a la ventana
+
+    // Ajustar para que no se salga de la pantalla
+    const offsetX = 20; // margen desde el clic
+    const offsetY = 20;
+
+    form.style.left = Math.min(x + offsetX, window.innerWidth - form.offsetWidth - 20) + 'px';
+    form.style.top = Math.min(y + offsetY, window.innerHeight - form.offsetHeight - 20) + 'px';
+
+    overlay.style.display = 'block';
 }
 function cerrarFormulario(){
     document.getElementById('form-overlay').style.display = 'none';
@@ -602,8 +637,9 @@ sec.classList.add("visible");
         </tbody>
     </table>
     <div class="sticky-buy">
-<button onclick="abrirFormulario(139000)">
-Comprar ahora – Gs. 139.000
+<!-- Sticky Buy -->
+<button onclick="abrirFormulario(139000, event)">
+    Comprar ahora – Gs. 139.000
 </button>
 </div>
 </section>
