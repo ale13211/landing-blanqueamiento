@@ -283,6 +283,7 @@ padding-bottom:100px;
   justify-content: center;
   align-items: center; /* centrado vertical y horizontal */
   z-index: 10000;
+  overflow-y: auto; /* permite scroll en móviles */
 }
 
 #form-overlay .popup-form {
@@ -294,7 +295,6 @@ padding-bottom:100px;
   max-height: 90vh;
   overflow-y: auto;
   box-sizing: border-box;
-  /* Animación de aparición desde botón */
   transform: scale(0.7);
   opacity: 0;
   transition: all 0.3s ease;
@@ -305,8 +305,17 @@ padding-bottom:100px;
   opacity: 1;
 }
 
+#form-overlay button.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: #25D366;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
 
-#form-overlay button.close-btn{ position:absolute; top:10px; right:15px; background-color:#25D366; border:none; font-size:22px; cursor:pointer; }
+
 #form-overlay h3{ text-align:center; margin-bottom:15px; }
 #form-overlay input, #form-overlay select{ width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd; font-size:16px; }
 #form-overlay .btn-primary{ width:100%; margin-top:10px; }
@@ -432,14 +441,28 @@ ciudadSelect.appendChild(option);
 }
 
 }
-function abrirFormulario(precio) {
+function abrirFormulario(precio){
     const overlay = document.getElementById('form-overlay');
-    document.getElementById('totalPedido').textContent = 'Total: Gs. ' + precio.toLocaleString();
+    const total = document.getElementById('totalPedido');
+    total.textContent = 'Total: Gs. ' + precio.toLocaleString();
 
     overlay.style.display = 'flex';
 
-    // Para móviles: hacer scroll suave hacia el popup
+    // Animación suave
+    setTimeout(() => {
+        overlay.classList.add('show');
+    }, 10);
+
+    // Para móviles, asegurar scroll al popup
     overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function cerrarFormulario(){
+    const overlay = document.getElementById('form-overlay');
+    overlay.classList.remove('show');
+    setTimeout(() => {
+        overlay.style.display = 'none';
+    }, 300); // espera animación
 }
 
 function cerrarFormulario() {
